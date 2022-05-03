@@ -1,0 +1,27 @@
+@Override
+    public void onEnable() {
+        PacketUtils.sendPacket(new C14PacketTabComplete("/"));
+        cached.clear();
+        time.reset();
+    }
+
+    @Override
+    public void onPreMotion(PreMotion event) {
+        if (time.passed (5))
+            toggled();
+    }
+
+    @Override
+    public void onPacketReceived(PacketReceived event) {
+        for (final String command : ((S3APacketTabComplete) event.getPacket()).func_149630_c()) {
+            final String[] commands = command.split(":");
+            if (commands.length > 1 && !commands[0].startsWith ( "/minecraft" )) {
+                final String plugin = commands[0].replaceAll ( "/", "" );
+                if (!cached.contains ( plugin )) {
+                    cached.add ( plugin );
+                    MessagesUtils.send ( "&d&lA&fnjay > " + plugin );
+                }
+            }
+        }
+    }
+}
