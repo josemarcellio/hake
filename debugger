@@ -1,0 +1,7 @@
+    @Override
+    public void onPacketSend(PacketSend event) {
+        final Packet<?> packet = event.getPacket();
+        if (packet instanceof C0FPacketConfirmTransaction) {
+            MessagesUtils.send ( "&d&lA&fnjay > &fC0FPacketConfirmTransaction " + ((C0FPacketConfirmTransaction) packet).getUid () );
+        }
+    }
